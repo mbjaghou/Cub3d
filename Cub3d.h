@@ -6,7 +6,7 @@
 /*   By: mbjaghou <mbjaghou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:32:34 by mbjaghou          #+#    #+#             */
-/*   Updated: 2022/09/28 13:17:48 by mbjaghou         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:01:33 by mbjaghou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 
 #include "get_next_line/get_next_line.h"
 #include <printf.h>
-typedef struct Cub3d
+typedef struct s_data
 {
     char **map;
     int len;
 } t_data;
 
 int	    ft_strncmp(const char *s1, const char *s2, size_t n);
+char	**ft_split2(char *str, char *charset);
 #endif

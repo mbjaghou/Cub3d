@@ -6,7 +6,7 @@
 /*   By: mbjaghou <mbjaghou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:31:18 by mbjaghou          #+#    #+#             */
-/*   Updated: 2022/09/28 13:18:33 by mbjaghou         ###   ########.fr       */
+/*   Updated: 2022/10/01 12:51:39 by mbjaghou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,74 @@ int	check_ext(char *map)
 		return (0);
 }
 
+int check_textures(char *av)
+{
+    char **str;
+    int i = 0;
+    int j;
+    
+    str = ft_split2(av, " \t\n");
+    int size = ft_strlen(str[0]);
+    if (str[0] && ft_strncmp(str[0], "NO", size) && ft_strncmp(str[0], "SO", size) && ft_strncmp(str[0], "WE", size) && \
+     ft_strncmp(str[0], "EA", size) && ft_strncmp(str[0], "F", size) && ft_strncmp(str[0], "C", size) && ft_strncmp(str[0], "1", 1) \
+      && ft_strncmp(str[0], "0", 1) && ft_strncmp(str[0], "N", 1) && ft_strncmp(str[0], "S", 1) && \
+      ft_strncmp(str[0], "W", 1) && ft_strncmp(str[0], "E", 1))
+    {
+        printf("error for textures\n");
+        return (0);
+    }
+    return (1);
+}
+
+int check_xpm(char *tmp)
+{
+    char **str;
+
+    str = ft_split2(tmp, " \t\n");
+    if (!str || !*str)
+        return (1);
+    int size = ft_strlen(str[0]);
+    if (!ft_strncmp(str[0], "SO", size) || !ft_strncmp(str[0], "NO", size) || \
+    !ft_strncmp(str[0], "WE", size) || !ft_strncmp(str[0], "EA", size))
+    {
+        if (ft_strncmp(".xpm", str[1] + ft_strlen(str[1]) - 4, 4))
+        {
+            printf("error\n");
+            return (0);
+        }
+        if (str[2])
+        {
+            printf("error 2\n");
+            return 0;
+        }
+           
+    }
+    return (1);
+        
+}
+
+void check_color(char *tmp)
+{
+
+    
+}
+
 int main(int ac, char **av)
 {
     t_data data1;
     char *line;
     int i = 0;
-    data1.len = 0;
-    if (ac != 2)
+    
+    if (ac != 2) {
         printf("Error argument\n");
+        return 0;
+    }
+    if(!check_ext(av[1]))
+    {
+        printf("Error\n");
+        return (0);
+    } 
+    data1.len = 0;
     int fd = open(av[1], O_RDONLY);
     if (fd == -1)
         exit(0);
@@ -45,6 +105,8 @@ int main(int ac, char **av)
         line = get_next_line(fd);
     }
     data1.map = (char **)malloc(sizeof(char *) * (data1.len + 1));
+    if (!data1.map)
+        return (0);
     if (close(fd) == -1)
         exit (0);
     fd = open(av[1], O_RDONLY);
@@ -54,16 +116,30 @@ int main(int ac, char **av)
     {
         data1.map[i++] = get_next_line(fd);
     }
+    data1.map[i] = NULL;
     if (close(fd) == -1)
         exit (0);
-    if(check_ext(av[1]) == 0)
+    i = -1;
+    while (++i < data1.len)
     {
-        printf("Error\n");
-    } 
-    i = 0;
-    while (i < data1.len)
-    {
-        printf("%s", data1.map[i++]);
+        if (!check_textures(data1.map[i]))
+        {
+            break;  
+        }
     }
+    i = -1;
+    while (++i < data1.len)
+    {
+        if (!check_xpm(data1.map[i]))
+        {
+            break;  
+        }
+    }
+   
+    // i = 0;
+    // while (i < data1.len)
+    // {
+    //     printf("%s", data1.map[i++]);
+    // }
    
 }
