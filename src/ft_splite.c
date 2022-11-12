@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splite.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbjaghou <mbjaghou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yachehbo <yachehbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:53:46 by mbjaghou          #+#    #+#             */
-/*   Updated: 2022/09/29 15:54:04 by mbjaghou         ###   ########.fr       */
+/*   Updated: 2022/10/17 12:18:36 by yachehbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cub3d.h"
+#include "../cub3d.h"
 
 int	char_is_separator(char c, char *charset)
 {
@@ -83,7 +83,7 @@ void	write_split(char **split, char *str, char *charset)
 	}
 }
 
-char	**ft_split2(char *str, char *charset)
+char	**ft_split(char *str, char *charset)
 {
 	char	**res;
 	int		words;
